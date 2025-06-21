@@ -1,5 +1,5 @@
 const { sequelize } = require('../config/db');
-const { DataTypes } = require('sequelize')
+const { DataTypes } = require('sequelize');
 
 const filialModel = sequelize.define('filiais',{
     ID_Filial:  {
