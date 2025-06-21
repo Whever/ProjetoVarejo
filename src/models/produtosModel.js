@@ -21,3 +21,5 @@ const produtosModel = sequelize.define("produtos", {
     tabelname: "produtos",
     timestamps: false
 })
+
+module.exports = {produtosModel}
