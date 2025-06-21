@@ -1,4 +1,3 @@
-const { timeStamp } = require('console');
 const {sequelize} = require('../config/db'); 
 const {DataTypes} = require('sequelize');
 
@@ -18,4 +17,7 @@ const produtosModel = sequelize.define("produtos",{
         type:DataTypes.INTEGER,
         allownull:false
     }
-},{tabelname:"produtos",timeStamp:false})
+},{
+    tabelname:"produtos",
+    timeStamps:false
+})
