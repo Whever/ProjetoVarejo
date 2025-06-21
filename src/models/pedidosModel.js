@@ -1,9 +1,9 @@
 const { sequelize } = require('../config/db');
 const { DataTypes } = require('sequelize');
 
-const pedidosModel = sequelize.define("Pedidos",
+const pedidosModel = sequelize.define("Pedido",
     {
-        idPedido: {
+        ID_Pedido: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
@@ -22,7 +22,7 @@ const pedidosModel = sequelize.define("Pedidos",
             allowNull: false
         }
     }, {
-    tablename: "Pedidos",
+    tablename: "Pedido",
     timestamps: false
 })
 

@@ -1,8 +1,8 @@
 const { sequelize } = require('../config/db');
 const { DataTypes } = require('sequelize');
 
-const produtosModel = sequelize.define("produtos", {
-    idProduto: {
+const produtosModel = sequelize.define("Produto", {
+    ID_Produto: {
         type: DataTypes.INTEGER,
         autoincrement: true,
         primarykey: true
@@ -18,7 +18,7 @@ const produtosModel = sequelize.define("produtos", {
         allownull: false
     }
 }, {
-    tabelname: "produtos",
+    tabelname: "Produto",
     timestamps: false
 })
 
