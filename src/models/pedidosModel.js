@@ -1,5 +1,7 @@
 const { sequelize } = require('../config/db');
 const { DataTypes } = require('sequelize');
+const {filialModel} = require('./filiaisModel');
+const { clientesModel } = require('./clientesmodel');
 
 const pedidosModel = sequelize.define("Pedido",
     {
@@ -16,14 +18,21 @@ const pedidosModel = sequelize.define("Pedido",
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false
         },
-        idClientePedido: {
+        idClienteProduto: {
             type: DataTypes.INTEGER,
-            //references()
+            references:{
+                model:clientesModel,
+                key:'idClientes'
+            },
             allowNull: false
         }
     }, {
     tablename: "Pedido",
     timestamps: false
 })
+
+clientesModel.hasOne(ID_clienteProduto,{foreignkey:'idClienteProduto',as:'Clientes'})
+pedidosModel.BelongsMany(clientesModel,{foreignkey:'idClienteProduto',as:'Pedido'})
+
 
 module.exports = {pedidosModel}

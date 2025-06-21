@@ -30,6 +30,8 @@ const clientesModel = sequelize.define('Clientes', {
     timestamps: false
 });
 
+
+
 module.exports = { clientesModel }
 
 

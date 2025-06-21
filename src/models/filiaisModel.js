@@ -1,7 +1,7 @@
 const { sequelize } = require('../config/db');
 const { DataTypes } = require('sequelize');
 
-const filialModel = sequelize.define('filiais',{
+const filialModel = sequelize.define('filial',{
     ID_Filial:  {
         type: DataTypes.INTEGER,
         autoIncrement: true,
@@ -18,12 +18,14 @@ const filialModel = sequelize.define('filiais',{
      cidadeFilial: {
         type:DataTypes.STRING,
         allowNull: false,
-     }
+     },
 },{
-      tableName: 'Filiais',
+      tableName: 'Filial',
       timestamps: false
 
     });
+
+   
 
 module.exports = {filialModel}
 

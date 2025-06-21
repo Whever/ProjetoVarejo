@@ -6,6 +6,7 @@ const { produtosModel } = require('./produtosModel');
 const { clientesModel } = require('./clientesmodel');
 const { filialModel } = require('./filiaisModel');
 const { pedidosModel } = require('./pedidosModel');
+const { estoqueModel } = require('./estoqueModel');
 
 const produtoPedidoModel = sequelize.define('ProdutoPedidos', {
     ID_produtoPedido:{
@@ -35,14 +36,14 @@ const produtoPedidoModel = sequelize.define('ProdutoPedidos', {
     },
 },{
     tableName: 'Turma',
-    timestamps: false
+    timestamps: false   
 
 });
+produtosModel.hasOne(produtoPedidoModel, {foreignkey: 'ID_Produtos',  as: 'Produtos'})
+pedidosModel.hasOne(produtoPedidoModel, {foreignKey: 'ID_Pedido', as: 'Pedido'})
 
-clientesModel.hasMany(pedidosModel,  {foreignkey: 'ID_Pedido', as: 'Cliente'})
-filialModel.belongsTo(produtoPedidoModel,  {foreignkey: 'ID_Estoque', as: 'Produtos' })
-produtosModel.hasMany(produtoPedidoModel,{foreignkey: 'ID_Pedido',  as: 'Estoques'})
-pedidosModel.hasMany()
+produtoPedidoModel.belongsToMany(produtosModel, {foreignKey: 'ID_Produtos', as: 'Produtos'})
+produtoPedidoModel.belongsToMany(pedidosModel, {foreignKey: 'ID_Pedido', as: 'Pedidos'})
 
 //entidade fraca pertence a entidade forte/ analogia: (""filho pertence ao pai, e o filho nao existiria sem o seu pai")
 
