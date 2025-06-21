@@ -2,26 +2,26 @@ const { sequelize } = require('../config/db');
 const { DataTypes } = require('sequelize');
 
 const clientesModel = sequelize.define('Clientes', {
-    ID_Clientes:{
+    id_clientes:{
         type:DataTypes.INTEGER, // Tipo do campo como inteiro
         autoIncrement: true, // Ira gerar um valor de id começando do 1
         primaryKey: true // Define como chave primaria.
     },
-    cpfCliente:{
+    cpf:{
         type: DataTypes.STRING,
         allowNull: false,
-        unique
+        unique:true
     },
     nomeCliente:{
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    emailCliente:{
+    email:{
         type: DataTypes.STRING,
         allowNull: false,
-        unique  // unique significar que será unico, nao tem como cadastrar um igual ("isso deve ser obvio eu acho kkk ;) ")
+        unique:true  // unique significar que será unico, nao tem como cadastrar um igual ("isso deve ser obvio eu acho kkk ;) ")
     },
-    telefoneCliente:{
+    telefone:{
         type: DataTypes.STRING,
         allowNull: true
     }
@@ -29,6 +29,8 @@ const clientesModel = sequelize.define('Clientes', {
     tableName: 'Clientes', // evitar de criar outras tabelas no banco de dados
     timestamps: false
 });
+
+
 
 module.exports = { clientesModel }
 

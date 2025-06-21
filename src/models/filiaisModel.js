@@ -1,29 +1,30 @@
 const { sequelize } = require('../config/db');
 const { DataTypes } = require('sequelize');
 
-const filialModel = sequelize.define('filiais',{
-    ID_Filial: {
+const filialModel = sequelize.define('filial',{
+    idFilial:  {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    nomeFilial: {
+    nome: {
        type: DataTypes.STRING,
        allowNull: false
     },
-     enderecoFilial: {
+     endereco: {
         type: DataTypes.STRING,
         allowNull: false,
      },
-     cidadeFilial: {
+     cidade: {
         type:DataTypes.STRING,
         allowNull: false,
-     }
+     },
 },{
-      tableName: 'Filiais',
+      tableName: 'filiais',
       timestamps: false
-
     });
+
+   
 
 module.exports = {filialModel}
 
