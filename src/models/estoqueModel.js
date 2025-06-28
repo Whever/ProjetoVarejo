@@ -1,54 +1,62 @@
 const { sequelize } = require('../config/db');
 const { DataTypes } = require('sequelize');
 
-const { filialModel } = require('./filiaisModel');
-const { produtosModel } = require('./produtosModel')
+const { filiaisModel } = require('./filiaisModel');
+const { produtosModel } = require('./produtosModel');
 
-const estoqueModel = sequelize.define('Estoque',{
-    idEstoque:{
+const estoqueModel = sequelize.define('Estoques', {
+    ID_Estoque: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    dataEntrada:{
+    dataEntradaEstoque: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    dataSaida:{
+    saidaEstoque: {
         type: DataTypes.STRING,
         allowNull: true
     },
-    statusEstoque:{
+    statusEstoque: {
         type: DataTypes.STRING,
         allowNull: false
     },
-    idFilialEstoque:{
+    ID_FilialEstoque: {
         type: DataTypes.INTEGER,
-        refences:{
+        refences: {
             model: filiaisModel,
-            key: 'idFiliais'
+            key: 'ID_Filial'
         },
         allowNull: false
-        
+
     },
-    idProdutoEstoque:{
-        type:DataTypes.INTEGER,
-        refences:{
+    ID_ProdutosEstoque: {
+        type: DataTypes.INTEGER,
+        refences: {
             model: produtosModel,
-            key: 'idProduto'
+            key: 'ID_Produto'
         },
         allowNull: false
-    },
-     tableName: 'Estoque',
-     timestamps: false
+    }
+}, {
+    tableName: 'Estoques',
+    timestamps: false
 });
 
-filialModel.HasMany(estoqueModel, {foreignkey:'idFilialEstoque', as: 'filiais'})
-produtosModel.HasMany(estoqueModel,{foreignkey:'idProdutoEstoque',as:'produtos'})
 
-estoqueModel.belongsToOne(filialModel, {foreignkey: 'idFilialEstoque', as: 'filiais'})
-estoqueModel.belongsToOne(produtosModel,{foreignkey:'idProdutoEstoque',as:'produtos'})
+filiaisModel.hasMany(estoqueModel, { foreignKey: 'ID_FilialEstoque', as: 'fialialEstoque' });
+produtosModel.hasMany(estoqueModel, { foreignKey: 'ID_ProdutosEstoque', as: 'produtosEstoque' });
 
+estoqueModel.belongsTo(filiaisModel, { foreignKey: 'ID_FilialEstoque', as: 'estoqueFilial' });
+estoqueModel.belongsTo(produtosModel, { foreignKey: 'ID_ProdutosEstoque', as: 'estoqueProdutos' });
 
+ //const teste = async () => {
+     //const dados = await estoqueModel.findAll();
 
-module.exports = {estoqueModel}
+   //  console.log(dados);
+ //}
+
+ //teste();
+
+module.exports = {estoqueModel};

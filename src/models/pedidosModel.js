@@ -1,38 +1,50 @@
 const { sequelize } = require('../config/db');
 const { DataTypes } = require('sequelize');
-const {filialModel} = require('./filiaisModel');
-const { clientesModel } = require('./clientesmodel');
+const { clientesModel } = require('./clientesModel');
 
-const pedidosModel = sequelize.define("Pedido",
+const pedidosModel = sequelize.define("Pedidos",
     {
-        idPedido: {
+        ID_Pedido: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
         },
-        statusPedido: {
+        DataPedido: {
+            type: DataTypes.TIME,
+            allowNull: false
+        },
+        StatusPedido: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        valorPedido: {
+        ValorPedido: {
             type: DataTypes.DECIMAL(10, 2),
             allowNull: false
         },
-        idClienteProduto: {
+        ID_clienteProduto: {
             type: DataTypes.INTEGER,
-            references:{
-                model:clientesModel,
-                key:'idClientes'
+            references: {
+                model: clientesModel,
+                key: 'ID_Cliente'
             },
             allowNull: false
         }
     }, {
-    tablename: "Pedido",
+    tablename: "Pedidos",
     timestamps: false
 })
 
-clientesModel.hasOne(pedidosModel,{foreignkey:'idClienteProduto',as:'Clientes'})
-pedidosModel.BelongsMany(clientesModel,{foreignkey:'idClienteProduto',as:'Cliente'})
+clientesModel.hasMany(pedidosModel, { foreignKey: 'ID_clienteProduto', as: 'clientesPedidos' });
+pedidosModel.belongsTo(clientesModel, { foreignKey: 'ID_clienteProduto', as: 'pedidosClientes' });
 
 
-module.exports = {pedidosModel}
+ //const teste = async () => {
+     //const dados = await pedidosModel.findAll();
+
+   //  console.log(dados);
+ //}
+
+// teste();
+
+
+module.exports = {pedidosModel};

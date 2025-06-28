@@ -7,15 +7,19 @@ router.get ("/", async (req, res)=>{
 });// Rota responsável por listar os pedidos no sistema
 
 router.post ("/", async (req, res)=>{
-    res.send("Cadastrar Pedidos");
+    const{dataEntradaEstoque,saidaEstoque,statusEstoque,ID_FilialEstoque,ID_ProdutosEstoque} = req.body; // Extrai os dados do corpo da requisição
+    console.log(`Data de Entrada: ${dataEntradaEstoque}, 
+        Saída de Estoque: ${saidaEstoque}, Status do Estoque: ${statusEstoque} id: ${ID_FilialEstoque}, ID do Produto: ${ID_ProdutosEstoque}`); // Exibe os dados no console
+    
+       res.send("Cadastrar Pedidos");
 });// Rota responsável por criar as filiais do sistema
 
-router.put ("/", async (req, res)=>{
+router.put ("/:ID_Pedidos", async (req, res)=>{
     res.send("Atualizar Pedidos");
 });// Rota responsável por atualizar as filiais do sistema
 
-router.delete ("/", async (req, res)=>{
+router.delete ("/:ID_Pedidos", async (req, res)=>{
     res.send("Deletar Pedidos");
 });// Rota responsável por deletar as filiais do sistema
 
-module.exports = { rotasPedidos: router };// Exporta o objeto de rotas para ser usado em outros arquivos
+module.exports = { pedidosRouter: router };// Exporta o objeto de rotas para ser usado em outros arquivos
