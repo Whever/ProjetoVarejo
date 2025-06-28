@@ -25,13 +25,12 @@ const filiaisModel = sequelize.define('filiais', {
 });
 
 
-// const teste = async ()=>{
-//     const dados = await filialModel.findAll();
+  //const teste = async () => {
+     //const dados = await filiaisModel.findAll();
 
-//     console.log(dados);
-// }
+   //  console.log(dados);
+ //}
 
-// teste();
-
+ //teste();
 module.exports = { filiaisModel };
 

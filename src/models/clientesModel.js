@@ -31,12 +31,11 @@ const clientesModel = sequelize.define('Clientes', {
 });
 
 
-// const teste = async ()=>{
-//     const dados = await clientesModel.findAll();
+ //const teste = async ()=>{
+     //const dados = await clientesModel.findAll();
 
-//     console.log(dados);
-// }
-
+   //  console.log(dados);
+ //}
 // teste();
 
 module.exports = { clientesModel };

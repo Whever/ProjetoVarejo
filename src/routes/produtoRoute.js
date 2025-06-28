@@ -7,15 +7,19 @@ router.get ("/", async (req, res)=>{
 });// Rota responsável por listar os produtos  no sistema
 
 router.post ("/", async (req, res)=>{
+    const {nomeProduto,valorProduto,QuantidadeProduto} = req.body; // Extrai os dados do corpo da requisição
+    console.log(`Nome do Produto: ${nomeProduto}, 
+        Valor do Produto: ${valorProduto}, Quantidade do Produto: ${QuantidadeProduto}`); // Exibe os dados no console
+
     res.send("Cadastrar Produto");
 });// Rota responsável por criar os produtos do sistema
 
-router.put ("/", async (req, res)=>{
+router.put ("/:ID_Produto", async (req, res)=>{
     res.send("Atualizar Produto");
 });// Rota responsável por atualizar os produtos do sistema
 
-router.delete ("/", async (req, res)=>{
+router.delete ("/:ID_Produto", async (req, res)=>{
     res.send("Deletar Produto");
 });// Rota responsável por deletar os produtos do sistema
 
-module.exports = { rotasProdutos: router };// Exporta o objeto de rotas para ser usado em outros arquivos
+module.exports = { produtoRouter: router };// Exporta o objeto de rotas para ser usado em outros arquivos

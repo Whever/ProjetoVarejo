@@ -51,12 +51,12 @@ produtosModel.hasMany(estoqueModel, { foreignKey: 'ID_ProdutosEstoque', as: 'pro
 estoqueModel.belongsTo(filiaisModel, { foreignKey: 'ID_FilialEstoque', as: 'estoqueFilial' });
 estoqueModel.belongsTo(produtosModel, { foreignKey: 'ID_ProdutosEstoque', as: 'estoqueProdutos' });
 
-// const teste = async () => {
-//     const dados = await estoqueModel.findAll();
+ //const teste = async () => {
+     //const dados = await estoqueModel.findAll();
 
-//     console.log(dados);
-// }
+   //  console.log(dados);
+ //}
 
-// teste();
+ //teste();
 
 module.exports = {estoqueModel};

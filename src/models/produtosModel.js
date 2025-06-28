@@ -24,12 +24,12 @@ const produtosModel = sequelize.define("Produtos", {
     timestamps: false
 });
 
-// const teste = async ()=>{
-//     const dados = await produtosModel.findAll();
+ //const teste = async ()=>{
+     //const dados = await produtosModel.findAll();
 
-//     console.log(dados);
-// }
+   //  console.log(dados);
+ //}
 
-// teste();
+ //teste();
 
 module.exports = {produtosModel}

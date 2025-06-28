@@ -40,13 +40,13 @@ const produtoPedidoModel = sequelize.define('ProdutoPedidos', {
 produtosModel.belongsToMany(pedidosModel, { through: produtoPedidoModel, foreignKey: 'ID_produto', as: 'produtosPedidos' })
 pedidosModel.belongsToMany(produtosModel, { through: produtoPedidoModel, foreignKey: 'ID_Pedido', as: 'pedidosProdutos' })
 
-// const teste = async () => {
-//     const dados = await produtoPedidoModel.findAll();
+ //const teste = async () => {
+   //  const dados = await produtoPedidoModel.findAll();
 
-//     console.log(dados);
-// }
+     //console.log(dados);
+ //}
 
-// teste();
+ //teste();
 
 //entidade fraca pertence a entidade forte/ analogia: (""filho pertence ao pai, e o filho nao existiria sem o seu pai")
 

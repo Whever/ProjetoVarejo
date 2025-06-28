@@ -38,11 +38,11 @@ clientesModel.hasMany(pedidosModel, { foreignKey: 'ID_clienteProduto', as: 'clie
 pedidosModel.belongsTo(clientesModel, { foreignKey: 'ID_clienteProduto', as: 'pedidosClientes' });
 
 
-// const teste = async () => {
-//     const dados = await pedidosModel.findAll();
+ //const teste = async () => {
+     //const dados = await pedidosModel.findAll();
 
-//     console.log(dados);
-// }
+   //  console.log(dados);
+ //}
 
 // teste();
 
