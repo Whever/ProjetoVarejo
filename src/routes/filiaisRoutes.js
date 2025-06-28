@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router(); // Instancia o objeto do express usado para definir rotas
+const {filialController} = require('./../controllers/filialController'); // Importa o controlador de filiais
 
-router.get ("/", async (req, res)=>{
-    res.send("Coleta Filial");
-}) // esta rota ira listar os filial.
+// router.get ("/", async (req, res)=>{
+//     res.send("Coleta Filial");
+// }) // esta rota ira listar os filial.
+
+
+router.get ("/", filialController.listarFilial);
 
 router.post ("/", async (req, res)=>{
     //nomeFilial,enderecoFilial,cidadeFilial
