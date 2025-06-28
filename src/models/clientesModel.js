@@ -19,11 +19,7 @@ const clientesModel = sequelize.define('Clientes', {
     email:{
         type: DataTypes.STRING,
         allowNull: false,
-<<<<<<< HEAD
         unique  // unique significar que será unico, nao tem como cadastrar um igual.
-=======
-        unique:true  // unique significar que será unico, nao tem como cadastrar um igual ("isso deve ser obvio eu acho kkk ;) ")
->>>>>>> c377f55d4a4236f13df2022d7d7bd9f9f7170ec0
     },
     telefone:{
         type: DataTypes.STRING,
