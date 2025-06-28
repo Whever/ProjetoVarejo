@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const MSSQL_HOST = `localhost` // servidor local
 const MSSQL_USER = `sa` // usuario do server db
 const MSSQL_PASSWORD = `123456789`// senha de acesso db
-const MSSQL_DB = `varejoEstoque` //nome banco de dados
+const MSSQL_DB = `varejoSumare` //nome banco de dados
 const MSSQL_PORT = `1433` //acesso de porta servidor sql server
 const MSSQL_DIALECT = `mssql` // definição dialeto qual banco de dados sera utilizado
 
