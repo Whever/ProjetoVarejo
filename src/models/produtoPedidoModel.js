@@ -3,48 +3,53 @@ const { DataTypes } = require('sequelize');
 
 
 const { produtosModel } = require('./produtosModel');
-const { clientesModel } = require('./clientesmodel');
-const { filialModel } = require('./filiaisModel');
 const { pedidosModel } = require('./pedidosModel');
-const { estoqueModel } = require('./estoqueModel');
 
 const produtoPedidoModel = sequelize.define('ProdutoPedidos', {
-    idProdutoPedido: {
+    ID_produtosPedido: {
         type: DataTypes.INTEGER, // tipo do campo como inteiro
         autoIncrement: true, // o valor sera gerado automaticamente
         primaryKey: true // define este campo como a chave primaria
     },
-    type: DataTypes.INTEGER,
-    quatidadePedido: {
+    quantidadePedido: {
+        type: DataTypes.INTEGER,
         allowNull: false
     },
-    idProduto: {
+    ID_produto: {
         type: DataTypes.INTEGER,
         references: {
             model: produtosModel,
-            key: 'idproduto'
+            key: 'ID_produto'
         },
         allowNull: false
     },
-    idPedido: {
+    ID_Pedido: {
         type: DataTypes.INTEGER,
         references: {
             model: pedidosModel,
-            key: 'idpedidos'
+            key: 'ID_Pedido'
         },
         allowNull: false
     },
 }, {
-    tableName: 'Turma',
+    tableName: 'ProdutoPedidos',
     timestamps: false
-
 });
-produtosModel.hasOne(produtoPedidoModel, { foreignkey: 'idProduto', as: 'produtos' })
-pedidosModel.hasOne(produtoPedidoModel, { foreignKey: 'idPedido', as: 'Pedidos' })
 
-produtoPedidoModel.belongsToMany(produtosModel, { foreignKey: 'idProduto', as: 'Produtos' })
-produtoPedidoModel.belongsToMany(pedidosModel, { foreignKey: 'idPedido', as: 'Pedidos' })
+
+produtosModel.belongsToMany(pedidosModel, { through: produtoPedidoModel, foreignKey: 'ID_produto', as: 'produtosPedidos' })
+pedidosModel.belongsToMany(produtosModel, { through: produtoPedidoModel, foreignKey: 'ID_Pedido', as: 'pedidosProdutos' })
+
+// const teste = async () => {
+//     const dados = await produtoPedidoModel.findAll();
+
+//     console.log(dados);
+// }
+
+// teste();
 
 //entidade fraca pertence a entidade forte/ analogia: (""filho pertence ao pai, e o filho nao existiria sem o seu pai")
 
 // petencer se refere ao que estamos programando produto pertencer a cliente produtoPedido *tem produto.
+
+module.exports = {produtoPedidoModel};

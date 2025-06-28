@@ -2,12 +2,12 @@ const { sequelize } = require('../config/db');
 const { DataTypes } = require('sequelize');
 
 const clientesModel = sequelize.define('Clientes', {
-    id_clientes:{
+    ID_Cliente:{
         type:DataTypes.INTEGER, // Tipo do campo como inteiro
         autoIncrement: true, // Ira gerar um valor de id começando do 1
         primaryKey: true // Define como chave primaria.
     },
-    cpf:{
+    cpfCliente:{
         type: DataTypes.STRING,
         allowNull: false,
         unique:true
@@ -16,16 +16,12 @@ const clientesModel = sequelize.define('Clientes', {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    email:{
+    emailCliente:{
         type: DataTypes.STRING,
         allowNull: false,
-<<<<<<< HEAD
-        unique  // unique significar que será unico, nao tem como cadastrar um igual.
-=======
         unique:true  // unique significar que será unico, nao tem como cadastrar um igual ("isso deve ser obvio eu acho kkk ;) ")
->>>>>>> c377f55d4a4236f13df2022d7d7bd9f9f7170ec0
     },
-    telefone:{
+    telefoneCliente:{
         type: DataTypes.STRING,
         allowNull: true
     }
@@ -35,8 +31,15 @@ const clientesModel = sequelize.define('Clientes', {
 });
 
 
+// const teste = async ()=>{
+//     const dados = await clientesModel.findAll();
 
-module.exports = { clientesModel }
+//     console.log(dados);
+// }
+
+// teste();
+
+module.exports = { clientesModel };
 
 
 

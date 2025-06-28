@@ -2,24 +2,34 @@ const { sequelize } = require('../config/db');
 const { DataTypes } = require('sequelize');
 
 const produtosModel = sequelize.define("Produtos", {
-    idProduto: {
+    ID_Produto: {
         type: DataTypes.INTEGER,
-        autoincrement: true,
-        primarykey: true
+        autoIncrement: true,
+        primaryKey: true
     },
-    nome: {
+    nomeProduto: {
         type: DataTypes.STRING,
         allownull: false
-    }, valorProduto: {
+    }, 
+    valorProduto: {
         type: DataTypes.DECIMAL(10, 2),
         allownull: false
-    }, quantidade: {
+    }, 
+    quantidadeProduto: {
         type: DataTypes.INTEGER,
         allownull: false
     }
 }, {
-    tabelname: "Produtos",
+    tableName: "Produtos",
     timestamps: false
-})
+});
+
+// const teste = async ()=>{
+//     const dados = await produtosModel.findAll();
+
+//     console.log(dados);
+// }
+
+// teste();
 
 module.exports = {produtosModel}
