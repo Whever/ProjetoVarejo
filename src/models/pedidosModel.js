@@ -5,7 +5,7 @@ const { clientesModel } = require('./clientesmodel');
 
 const pedidosModel = sequelize.define("Pedido",
     {
-        ID_Pedido: {
+        idPedido: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
             primaryKey: true
@@ -31,8 +31,8 @@ const pedidosModel = sequelize.define("Pedido",
     timestamps: false
 })
 
-clientesModel.hasOne(ID_clienteProduto,{foreignkey:'idClienteProduto',as:'Clientes'})
-pedidosModel.BelongsMany(clientesModel,{foreignkey:'idClienteProduto',as:'Pedido'})
+clientesModel.hasOne(pedidosModel,{foreignkey:'idClienteProduto',as:'Clientes'})
+pedidosModel.BelongsMany(clientesModel,{foreignkey:'idClienteProduto',as:'Cliente'})
 
 
 module.exports = {pedidosModel}

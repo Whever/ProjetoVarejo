@@ -5,16 +5,16 @@ const { filialModel } = require('./filiaisModel');
 const { produtosModel } = require('./produtosModel')
 
 const estoqueModel = sequelize.define('Estoque',{
-    ID_Estoque:{
+    idEstoque:{
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
     },
-    dataEntregaEstoque:{
+    dataEntrada:{
         type: DataTypes.STRING,
         allowNull: true
     },
-    saidaEstoque:{
+    dataSaida:{
         type: DataTypes.STRING,
         allowNull: true
     },
@@ -43,10 +43,10 @@ const estoqueModel = sequelize.define('Estoque',{
      timestamps: false
 });
 
-filialModel.HasMany(estoqueModel, {foreignkey:'idFilialEstoque', as: 'filial'})
+filialModel.HasMany(estoqueModel, {foreignkey:'idFilialEstoque', as: 'filiais'})
 produtosModel.HasMany(estoqueModel,{foreignkey:'idProdutoEstoque',as:'produtos'})
 
-estoqueModel.belongsdToOne(filialModel, {foreignkey: 'idFilialEstoque', as: 'filial'})
+estoqueModel.belongsToOne(filialModel, {foreignkey: 'idFilialEstoque', as: 'filiais'})
 estoqueModel.belongsToOne(produtosModel,{foreignkey:'idProdutoEstoque',as:'produtos'})
 
 
