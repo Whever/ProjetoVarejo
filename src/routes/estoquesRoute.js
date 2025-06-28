@@ -1,9 +1,21 @@
 const express = require('express');
-const router = express.Router();
+const router = express.Router();// Instancia o objeto do express usado para definir rotas
 
-router.get ("/", estoqueControler.listarEstoque);
-router.post("/",estoqueControler.cadastrarEstoque);
-router.put("/:ID_Filial", filialControler.atualizarEstoque);
-router.delete("/:ID_Filial", filialControler.deletarEstoque);
+//Rotas de Filiais
+router.get ("/", async (req, res)=>{
+    res.send("Coleta Estoque");
+});// Rota responsável por listar o estoque no sistema
 
-module.export = { rotasEstoque: router };
+router.post ("/", async (req, res)=>{
+    res.send("Cadastrar Estoque");
+});// Rota responsável por criar as filiais do sistema
+
+router.put ("/", async (req, res)=>{
+    res.send("Atualizar Estoque");
+});// Rota responsável por atualizar as filiais do sistema
+
+router.delete ("/", async (req, res)=>{
+    res.send("Deletar Estoque");
+});// Rota responsável por deletar as filiais do sistema
+
+module.exports = { rotasEstoque: router };// Exporta o objeto de rotas para ser usado em outros arquivos
