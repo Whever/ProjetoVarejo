@@ -1,21 +1,131 @@
-const {filialModel} = require('./../models/filiaisModel');//modelo banco de dados
-const { Op } = require("sequelize");
+const { filiaisModel } = require("../models/filiaisModel");
+const { Op, where } = require('sequelize');
+const { perseDataBd, parseDateBd } = require('../utils/dateUtils');
 
-const filialController = {
-    listarFilial: async (requestAnimationFrame,res)=>{
+const filiaisController = {
+    listarFiliais: async (req, res)=>{
+
         try {
-            let valor = "teste123"
-            return res.status(200).json(valor); // retorna o array de filiais como resposta JSON com status 200.
+            let {ID_Filial, nomeFilial} = req.query;
 
+            let conditions = {};
 
-            
+            if(ID_Filial){
+
+                conditions.ID_Filial = ID_Filial;
+
+            }
+
+            if(nomeFilial){
+                conditions.nomeFilial = nomeFilial;
+            }
+
+            let filiais = await filiaisModel.findAll({
+                where:{
+                    [Op.or]: [
+                        {ID_Filial: { [Op.eq]: conditions.ID_Filial} },
+                        {nomeFilial: { [Op.substring]: conditions.nomeFilial} }
+
+                    ]
+                }
+            });
+
+            filiais = filiais.map(filial =>{
+                filial.enderecoFilial = parseDateBd(filial.enderecoFilial);
+                return filial;
+            });
+
+            return res.status(200).json(filiais);
+
         } catch (error) {
-            console.error("Erro ao listar filiais", error); // loga o erro no console.
-            return res.status(500).json({ message: "Erro ao listar filiais" });
+            
+            console.error("Erro ao listar filiais:", error);
+            return res.status(500).json({message: "Erro ao listar filial"});
+    
         }
+    },
+    cadastrarFilial: async (req, res)=>{
+
+        try {
+
+            const {nomeFilial, enderecoFilial, cidadeFilial} = req.body;
 
 
+            if(!nomeFilial || !enderecoFilial || cidadeFilial){
+                return res.status(400).json({message:"campos obrigatorios não preenchidos"})
+            }
+
+
+    if(filial){
+        return res.status(500).json({message:"Erro ao cadastrar filial!"})
+    }
+        
+    }catch (error) {
+
+        console.error("Erro ao cadastrar filial:", error);
+        return res.status(500).json({message: "Erro ao cadastrar filial!"})
 
     }
+},
+   atualizarFilial: async (req, res)=>{
+
+       try {
+    
+        const {ID_Filial} = req.params
+        const {nomeFilial, enderecoAluno, cidadeFilial } = req.body; 
+         
+        let filial = await filiaisModel.findByPk(ID_Filial);
+    
+        if(!nomeFilial || enderecoAluno || cidadeFilial){
+        return res.status(404).json({message: "Filial não encontrado!"});
+        }
+    
+       let dadosAtualizados = {nomeFilial, enderecoAluno, cidadeFilial};
+    
+       await filiaisModel.update(dadosAtualizados, {where: {ID_Filial}});
+    
+       filial = await filiaisModel.findByPk(ID_Filial);
+    
+       return res.status(200).json({message: "Filial atualizado com sucesso:", Filial: filial});
+    
+} catch (error) {
+
+    console.error("Erro ao atualizar filial:", error);
+    return res.status(500).json({message: "Erro ao atualizar filial"});
+    
 }
-module.exports = { filialController };
+
+},
+deletarFilial: async (req, res)=>{
+
+    try {
+    const {ID_Filial} = req.params
+    
+    let filial = await filiaisModel.findByPk(ID_Filial);
+    
+    if(!filial) {
+     return res.status(404).json({message: "Filial não encontrado!"});
+    }
+    
+    let nomeFilial = filial.nomeFilial;
+
+    let result = await filiaisModel.destroy({where: {ID_Filial}});
+
+    if (result>0) {
+        return res.status(200).json ({message: `${nomeFilial} foi excluido com sucesso!`});
+    }else{
+        return res.status(404).json({message: "Erro ao excluir filial!"});
+    }
+    }
+    
+catch (error) {
+    
+   console.error("Erro ao excluir filail:", error);
+   return res.status(500).json({message: "Erro ao excluir filial"});
+
+}
+}
+
+}
+
+module.exports = { filiaisController };

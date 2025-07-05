@@ -1,9 +1,9 @@
 const { pedidosModel } = require('../models/pedidosModel');
 const { Op, where } = require('sequelize');
-const { parseDataBd, parseDateBd } = require('../utils/dateUtils');
+const { parseDateBd } = require('../utils/dateUtils');
 
 const pedidoController = {
-    listarPedidos: async (requestAnimationFrame, res)=>{
+    listarPedidos: async (req, res)=>{
 
         try {
             let {ID_Pedido, statusPedido} = req.query;
