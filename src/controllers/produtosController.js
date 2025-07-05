@@ -71,7 +71,64 @@ const produtosController = {
     },
     atualizarProdutos: async (req, res)=> {
 
+        try {
+
+            const { ID_Produtos } = req.params;
+            const { nomeProduto, valorProduto, quantidadeProduto } = req.body;
+            
+            let produto = await produtosModel.findByPk(ID_Produtos);
+
+            if (!produto) {
+                return res.status(404).json({messagem: "produto não encotrado! "});
+            }
+
+            let dadosAtualizados = { nomeProduto, valorProduto, quantidadeProduto };
+
+            await produtosModel.update(dadosAtualizados, {where: { ID_Produtos }});
+
+            produto = await produtosModel.findByPk(ID_Produtos);
+
+        return res.status(200).json({messagem: "produto cadastrado com sucesso: ", produto: produto});
+
+    } catch (error) {
+
+        console.error("Error ao atualizar o produto:", error);
+        return res.status(500).json({ messagem: "Erro ao atualizar produto" });
+
     }
+ },
+ deletarProduto: async (req, res)=> {
+
+    try {
+
+        const { ID_Produtos } = req.params; // indentifica qual id sera deletado.
+
+        let produto = await produtosModel.findByPk(ID_Produtos);
+
+        if (!produto) {
+            return res.status(404).json({messagem: "produto nao encontrado! "});
+        }
+
+        let nomeProduto = produto.nomeProduto;
+
+        let result = await produtosModel.destroy({ where: {ID_Produtos } });
+
+        if (result > 0) {
+
+            return res.status(200).json({ messagem: `${nomeProduto} foi excluido com sucesso!` });
+
+        } else {
+            return res.status(404).json({ messagem: "error ao excluir produto" });
+        } 
+
+    } catch (error) {
+        console.error("Erro ao excluir produto!", error);
+        return res.status(500).json({ messagem: "Erro ao excluir produto" });
+
+    }
+ }
+
 };
 
+module.exports = { produtosController };
 
