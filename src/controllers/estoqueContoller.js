@@ -30,7 +30,7 @@ const estoqueController = {
             }
            });
             estoques = estoques.map(estoque =>{
-            //estoque.dataEntradaEstoque = parseDateBd(estoque.dataEntradaEstoque);
+            estoque.dataEntradaEstoque = parseDateBd(estoque.dataEntradaEstoque);
             return estoque;
            });
 
@@ -50,7 +50,7 @@ const estoqueController = {
      const {statusEstoque, dataEntradaEstoque, dataSaidaEstoque} = req.body;
      
      if(!statusEstoque || !dataEntradaEstoque || !dataSaidaEstoque){
-return res.status(400).jason({message:"campos obrigatorios não preenchidos"})
+return res.status(400).json({message:"campos obrigatorios não preenchidos"})
      }
 
     if(estoque){
@@ -123,7 +123,7 @@ deletarEstoque: async (req, res)=>{
 catch (error) {
     
    console.error("Erro ao excluir no estoque:", error);
-   return res.status(500).json({message: "Erro ao excluir aluno"});
+   return res.status(500).json({message: "Erro ao excluir no estoque"});
 
 }}   
     
