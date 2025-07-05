@@ -1,6 +1,6 @@
 const { Op } = require('sequelize');
 const { clientesModel } = require('../models/clientesModel');
-
+const { parseDateBd } = require('../utils/dateUtils')
 
 
 const clienteController = {listarCliente: async (req, res)=>{
