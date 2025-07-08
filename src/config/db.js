@@ -13,17 +13,17 @@ const sequelize = new Sequelize(MSSQL_DB,MSSQL_USER,MSSQL_PASSWORD,{
     port: MSSQL_PORT
 })
 
-/*
- async function testConnection() {
-     try {
-         await sequelize.authenticate();
-         console.log(`conexao estabelecida com sucesso`);
-        
-     } catch (error) {
-         console.log(`Nao foi possivel conectar com db motivo ${error}`);
-    
-     }
- }
 
-testConnection();*/
+//  async function testConnection() {
+//      try {
+//          await sequelize.authenticate();
+//          console.log(`conexao estabelecida com sucesso`);
+        
+//      } catch (error) {
+//          console.log(`Nao foi possivel conectar com db motivo ${error}`);
+    
+//      }
+//  }
+
+// testConnection();
 module.exports = {sequelize} 
