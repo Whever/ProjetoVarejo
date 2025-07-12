@@ -36,26 +36,14 @@ const estoqueController = {
 
         try {
 
-            const { dataEntradaEstoque, dataSaida, statusEstoque, ID_FilialEstoque, ID_ProdutosEstoque } = req.body;
-            if (!dataEntradaEstoque || !dataSaida || !statusEstoque || !ID_FilialEstoque || !ID_ProdutosEstoque) {
+            const { dataEntradaEstoque, saidaEstoque, statusEstoque, ID_FilialEstoque, ID_ProdutosEstoque } = req.body;
+            if (!dataEntradaEstoque || !saidaEstoque || !statusEstoque || !ID_FilialEstoque || !ID_ProdutosEstoque) {
                 return res.status(400).json({ message: "campos obrigatorios não preenchidos" })
-            }
-
-            let estoque = await estoqueModel.findOne({
-                where: {
-                    [Op.or]: [
-                        { ID_FilialEstoque },
-                    ]
-                }
-            });
-
-            if (estoque) {
-                return res.status(409).json({ message: "já cadastrado no estoque!" });
             }
 
             await estoqueModel.create({
                 dataEntradaEstoque,
-                dataSaida,
+                saidaEstoque,
                 statusEstoque,
                 ID_FilialEstoque,
                 ID_ProdutosEstoque
@@ -74,16 +62,16 @@ const estoqueController = {
         try {
 
             const { ID_Estoque } = req.params
-            const { dataEntradaEstoque,dataSaida,statusEstoque,ID_FilialEstoque,ID_ProdutosEstoque } = req.body;
+            const { dataEntradaEstoque,saidaEstoque,statusEstoque,ID_FilialEstoque,ID_ProdutosEstoque } = req.body;
           
 
             let estoque = await estoqueModel.findByPk(ID_Estoque);
 
-            if (dataEntradaEstoque||dataSaida||statusEstoque||ID_FilialEstoque||ID_ProdutosEstoque) {
+            if (dataEntradaEstoque||saidaEstoque||statusEstoque||ID_FilialEstoque||ID_ProdutosEstoque) {
                 return res.status(404).json({ message: "não encontrado no estoque!" });
             }
 
-            let dadosAtualizados = { dataEntradaEstoque,dataSaida,statusEstoque,ID_FilialEstoque,ID_ProdutosEstoque };
+            let dadosAtualizados = { dataEntradaEstoque,saidaEstoque,statusEstoque,ID_FilialEstoque,ID_ProdutosEstoque };
 
             await estoqueModel.update(dadosAtualizados, { where: { ID_Estoque } });
 

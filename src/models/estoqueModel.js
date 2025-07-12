@@ -49,7 +49,7 @@ filiaisModel.hasMany(estoqueModel, { foreignKey: 'ID_FilialEstoque', as: 'fialia
 produtosModel.hasMany(estoqueModel, { foreignKey: 'ID_ProdutosEstoque', as: 'produtosEstoque' });
 
 estoqueModel.belongsTo(filiaisModel, { foreignKey: 'ID_FilialEstoque', as: 'estoqueFilial' });
-estoqueModel.belongsTo(produtosModel, { foreignKey: 'ID_ProdutosEstoque', as: 'estoqueProdutos' });
+estoqueModel.belongsTo(produtosModel, { foreignKey: 'ID_ProdutosEstoque', as: 'estoqueProduto' });
 
  //const teste = async () => {
      //const dados = await estoqueModel.findAll();

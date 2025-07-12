@@ -1,8 +1,7 @@
 const express = require('express');
-const { estoqueController } = require('../controller/estoqueContoller');
 const router = express.Router();// Instancia o objeto do express usado para definir rotas
 
-const {estoqueController} = require('./../controllers/estoqueController');// Importa o controlador de estoque
+const {estoqueController} = require('../controllers/estoqueController');// Importa o controlador de estoque
 //Rotas de Filiais
 router.get("/",estoqueController.listarEstoque );// Rota responsável por listar o estoque no sistema
 

@@ -10,7 +10,7 @@ const {produtoPedidoRouter} = require('./src/routes/produtoPedidoRouter'); // im
 const app = express(); // criar uma intancia do express, armazenando tudo no "app"
 
 const PORT = 8081; // criar a porta
-const {estoqueRoute} = require('./src/controller/estoqueContoller')
+const {estoqueRoute} = require('./src/controllers/estoqueController')
 app.use(express.json()); // configura o body - parser para interpretar corpo de requisiçao no formato json.
 
 app.use("/clientes", clienteRouter); // utilizar a rota de clientes
