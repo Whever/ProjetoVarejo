@@ -11,7 +11,7 @@ const produtoPedidoModel = sequelize.define('ProdutoPedidos', {
         autoIncrement: true, // o valor sera gerado automaticamente
         primaryKey: true // define este campo como a chave primaria
     },
-    quantidadePedido: {
+    quatidadePedido: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
@@ -19,7 +19,7 @@ const produtoPedidoModel = sequelize.define('ProdutoPedidos', {
         type: DataTypes.INTEGER,
         references: {
             model: produtosModel,
-            key: 'ID_produto'
+            key: 'ID_Produto'
         },
         allowNull: false
     },
@@ -37,16 +37,16 @@ const produtoPedidoModel = sequelize.define('ProdutoPedidos', {
 });
 
 
-produtosModel.belongsToMany(pedidosModel, { through: produtoPedidoModel, foreignKey: 'ID_produto', as: 'produtosPedidos' })
+produtosModel.belongsToMany(pedidosModel, { through: produtoPedidoModel, foreignKey: 'ID_Produto', as: 'produtosPedidos' })
 pedidosModel.belongsToMany(produtosModel, { through: produtoPedidoModel, foreignKey: 'ID_Pedido', as: 'pedidosProdutos' })
 
- //const teste = async () => {
-   //  const dados = await produtoPedidoModel.findAll();
+//  const teste = async () => {
+//     const dados = await produtoPedidoModel.findAll();
 
-     //console.log(dados);
- //}
+//      console.log(dados);
+//  }
 
- //teste();
+//  teste();
 
 //entidade fraca pertence a entidade forte/ analogia: (""filho pertence ao pai, e o filho nao existiria sem o seu pai")
 

@@ -25,7 +25,7 @@ const pedidosModel = sequelize.define("Pedidos",
             type: DataTypes.INTEGER,
             references: {
                 model: clientesModel,
-                key: 'ID_Cliente'
+                key: 'ID_Cliente',
             },
             allowNull: false
         }

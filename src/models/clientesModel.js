@@ -38,7 +38,7 @@ const clientesModel = sequelize.define('Clientes', {
  //}
 // teste();
 
-module.exports = { clientesModel };
+module.exports =  {clientesModel} ;
 
 
 

@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router(); // ele instancia o router, um objeto do express para definir rotas.
 
+const {clienteController} = require("./../controllers/clienteController")
+
 //const {clienteController} = require("../controllers/clienteController");
 const {clienteController} = require('../controllers/clienteController')
 
 
-router.get ("/", async (req,res)=>{
-    res.send("Listar Clientes");
-}); // esta rota ira listar os clientes.
+router.get ("/",clienteController.listarCliente); // esta rota ira listar os clientes.
 
+<<<<<<< HEAD
 router.post ("/", async (req,res)=>{
 
     const {cpfCliente, nomeCliente, emailCliente, telefoneCliente} = req.body; // extrai os dados do corpo da requisição.
@@ -31,6 +32,12 @@ router.delete ("/:ID_Cliente", async (req,res)=>{
     res.send("Deletar Cliente");
 
 }); // esta rota ira deletar um cliente.
+=======
+router.post ("/", clienteController.cadastrarCliente); // esta rota ira cadastrar um cliente.
+
+router.put ("/:ID_Cliente",clienteController.atualizarCliente); // esta rota ira atualizar um cliente.
+router.delete ("/:ID_Cliente", clienteController.deletarCliente); // esta rota ira deletar um cliente.
+>>>>>>> controlador
 
 
 

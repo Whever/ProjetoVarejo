@@ -5,7 +5,7 @@ const {estoqueRouter} = require('./src/routes/estoquesRoute'); // importar o arq
 const {filiaisRouter} = require('./src/routes/filiaisRoutes'); // importar o arquivo de rotas de filiais
 const {pedidosRouter} = require('./src/routes/pedidosRouter'); // importar o arquivo de rotas de pedidos
 const {produtoRouter} = require('./src/routes/produtoRoute'); // importar o arquivo de rotas de produtos
-
+const {produtoPedidoRouter} = require('./src/routes/produtoPedidoRouter'); // importar o arquivo de rotas de produtos pedidos
 
 const app = express(); // criar uma intancia do express, armazenando tudo no "app"
 
@@ -15,7 +15,6 @@ app.use(express.json()); // configura o body - parser para interpretar corpo de 
 
 app.use("/clientes", clienteRouter); // utilizar a rota de clientes
 
-
 app.use("/estoque", estoqueRouter); // utilizar a rota de estoques
 
 app.use("/filial", filiaisRouter); // utilizar a rota de filiais
@@ -23,6 +22,8 @@ app.use("/filial", filiaisRouter); // utilizar a rota de filiais
 app.use("/pedido",pedidosRouter)
 
 app.use("/produto", produtoRouter); // utilizar a rota de produtos
+
+app.use("/produtoPedido", produtoPedidoRouter); // utilizar a rota de produtos pedidos
 
 app.listen(PORT, ()=> {
     console.log(`servidor esta rodando na porta: ${PORT}`)
