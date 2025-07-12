@@ -44,9 +44,6 @@ const pedidoController = {
             if (!DataPedido || !StatusPedido || !ValorPedido || !ID_clienteProduto) {
                 return res.status(400).json({ message: "Campos obrigatórios não preenchidos" });
             }
-
-            
-            
             
             const clienteExist = clientesModel.findByPk(ID_clienteProduto);
 

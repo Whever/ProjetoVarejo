@@ -1,6 +1,9 @@
 const { estoqueModel } = require('./../models/estoqueModel');
+const { filiaisModel } = require('./../models/filiaisModel');
+const { produtoModel, produtosModel } = require('./../models/produtosModel');
 const { Op, where } = require('sequelize');
 const { parseData } = require('./../utils/dateUtils'); // Importa a função parseData para formatar datas
+const { clientesModel } = require('../models/clientesModel');
 
 const estoqueController = {
     listarEstoque: async (req, res) => {
@@ -35,21 +38,32 @@ const estoqueController = {
     cadastrarEstoque: async (req, res) => {
 
         try {
+            const { dataEntradaEstoque, saidaEstoque, statusEstoque, ID_FilialEstoque, ID_ProdutosEstoque } = req.body;
 
-            const { dataEntradaEstoque, dataSaida, statusEstoque, ID_FilialEstoque, ID_ProdutosEstoque } = req.body;
+            let filialTabela = filiaisModel.findAll({ ID_FilialEstoque });
 
-            if (!dataEntradaEstoque || !dataSaida || !statusEstoque || !ID_FilialEstoque || !ID_ProdutosEstoque) {
+            let produtoTabela = produtosModel.findAll({ ID_ProdutosEstoque });
+
+            if (!dataEntradaEstoque || !saidaEstoque || !statusEstoque || !ID_FilialEstoque || !ID_ProdutosEstoque) {
                 return res.status(400).json({ message: "campos obrigatorios não preenchidos" })
             }
 
-        
+            if (!produtoTabela) {
+                return res.status(409).json({ message: "Produto nao localizado" });
+            }
+
+            if (!filialTabela) {
+                return res.status(409).json({ message: "filial nao localizado" });
+            }
+
             await estoqueModel.create({
-                dataEntradaEstoque,
-                dataSaida,
-                statusEstoque,
-                ID_FilialEstoque,
-                ID_ProdutosEstoque
+                dataEntradaEstoque: dataEntradaEstoque,
+                saidaEstoque: saidaEstoque,
+                statusEstoque: statusEstoque,
+                ID_FilialEstoque: ID_FilialEstoque,
+                ID_ProdutosEstoque: ID_ProdutosEstoque
             });
+
 
             return res.status(201).json({ message: "cadastrado no estoque com sucesso!" })
         } catch (error) {
@@ -64,46 +78,61 @@ const estoqueController = {
         try {
 
             const { ID_Estoque } = req.params
-            
-            
-            const { dataEntradaEstoque,dataSaida,statusEstoque,ID_FilialEstoque,ID_ProdutosEstoque } = req.body;
-          
-            let estoque = await estoqueModel.findByPk(ID_Estoque);
+            const { dataEntradaEstoque, saidaEstoque, statusEstoque, ID_FilialEstoque, ID_ProdutosEstoque } = req.body;
 
-            if (dataEntradaEstoque||dataSaida||statusEstoque||ID_FilialEstoque||ID_ProdutosEstoque) {
+            
+            if (dataEntradaEstoque || saidaEstoque || statusEstoque || ID_FilialEstoque || ID_ProdutosEstoque) {
                 return res.status(404).json({ message: "não encontrado no estoque!" });
             }
 
-            let dadosAtualizados = { dataEntradaEstoque,dataSaida,statusEstoque,ID_FilialEstoque,ID_ProdutosEstoque };
+            let estoque = await estoqueModel.findByPk(ID_Estoque);
 
-            await estoqueModel.update(dadosAtualizados, { where: { ID_Estoque } });
+            let estoqueExiste = await estoqueModel.findByPk(ID_Estoque);
+            if (!estoqueExiste) {
+                return res.status(404).json({ message: "estoque não encontrado!" });
+            }
+
+
+            let dadosAtualizados = {
+                dataEntradaEstoque: dataEntradaEstoque,
+                saidaEstoque: saidaEstoque,
+                statusEstoque: statusEstoque,
+                ID_FilialEstoque: ID_FilialEstoque,
+                ID_ProdutosEstoque: ID_ProdutosEstoque
+            };
+
+            await estoqueModel.update(dadosAtualizados, {
+                where: {
+                    ID_Estoque
+                }
+            });
 
             estoque = await estoqueModel.findByPk(ID_Estoque);
 
-            //return res.status(200).json({ message: "Atualizado no estoque com sucesso:", Estoque: estoque });
 
         } catch (error) {
-
             console.error("Erro ao atualizar no estoque:", error);
             return res.status(500).json({ message: "Erro ao atualizar no estoque" });
-
         }
     },
 
     deletarEstoque: async (req, res) => {
 
         try {
-            const { ID_Estoque } = req.params
+
+            const ID_Estoque = req.params.ID_Estoque
             const estoque = await estoqueModel.findByPk(ID_Estoque)
 
             if (!estoque) {
                 return res.status(404).json({ message: "não encontrado no estoque!" });
             }
+
             let result = await estoqueModel.destroy({
                 where: { ID_Estoque }
-            })
+            });
+
             if (result > 0) {
-                return res.status(200).json({ message: `${statusEstoque} foi excluido no estoque com sucesso!` });
+                return res.status(200).json({ message: `foi excluido no estoque com sucesso!` });
             } else {
                 return res.status(404).json({ message: "Erro ao excluir no estoque!" });
             }
