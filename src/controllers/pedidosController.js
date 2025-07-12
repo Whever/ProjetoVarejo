@@ -14,12 +14,12 @@ const pedidoController = {
             }
 
             let pedidos = await pedidosModel.findAll({
-                where: {
+                
                     [Op.or]: [
                         { ID_Pedido: { [Op.eq]: conditions.ID_Pedido } }
                     ]
-                }
-            })
+                
+            });
 
             pedidos = pedidos.map(pedido => {
                 return pedido;
@@ -107,7 +107,7 @@ const pedidoController = {
         try {
             const { ID_Pedido } = req.params;
             
-            const pedido = await pedidosModel.findByPk(ID_Pedido);
+            let pedido = await pedidosModel.findByPk(ID_Pedido);
 
             if (!pedido) {
                 return res.status(404).json({ message: "Pedido não encontrado" });
