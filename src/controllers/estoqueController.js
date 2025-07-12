@@ -37,22 +37,12 @@ const estoqueController = {
         try {
 
             const { dataEntradaEstoque, dataSaida, statusEstoque, ID_FilialEstoque, ID_ProdutosEstoque } = req.body;
+
             if (!dataEntradaEstoque || !dataSaida || !statusEstoque || !ID_FilialEstoque || !ID_ProdutosEstoque) {
                 return res.status(400).json({ message: "campos obrigatorios não preenchidos" })
             }
 
-            let estoque = await estoqueModel.findOne({
-                where: {
-                    [Op.or]: [
-                        { ID_FilialEstoque },
-                    ]
-                }
-            });
-
-            if (estoque) {
-                return res.status(409).json({ message: "já cadastrado no estoque!" });
-            }
-
+        
             await estoqueModel.create({
                 dataEntradaEstoque,
                 dataSaida,
@@ -99,7 +89,6 @@ const estoqueController = {
 
         }
     },
-
 
     deletarEstoque: async (req, res) => {
 

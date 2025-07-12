@@ -41,6 +41,8 @@ const clienteController = {
             if (!nomeCliente || !cpfCliente || !telefoneCliente || !emailCliente) {
                 return res.status(400).json({ Message: "Campos obrigatórios não preenchidos" });
             }
+
+            
             let clienteExiste = await clientesModel.findOne({
                 where: {
                     [Op.or]: [

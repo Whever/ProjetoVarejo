@@ -1,5 +1,6 @@
 const { Op, where } = require('sequelize');
 const { pedidosModel } = require('./../models/pedidosModel');
+const { clientesModel } = require('./../models/clientesModel');
 const { Where } = require('sequelize/lib/utils');
 
 const pedidoController = {
@@ -37,11 +38,20 @@ const pedidoController = {
     cadastrarPedido: async (req, res) => {
         try {
             const { DataPedido, StatusPedido, ValorPedido, ID_clienteProduto } = req.body;
-
-
-
+            console.log(ID_clienteProduto);
+            
+            
             if (!DataPedido || !StatusPedido || !ValorPedido || !ID_clienteProduto) {
                 return res.status(400).json({ message: "Campos obrigatórios não preenchidos" });
+            }
+
+            
+            
+            
+            const clienteExist = clientesModel.findByPk(ID_clienteProduto);
+
+            if(!clienteExist){
+                return res.status(400).json({ message: "Cliente nao existe" });
             }
 
             let produtoExiste = await pedidosModel.findOne({
@@ -56,6 +66,7 @@ const pedidoController = {
             if (produtoExiste) {
                 return res.status(409).json({ message: "Pedido já cadastrado!" });
             }
+
 
             await pedidosModel.create({
                 DataPedido: DataPedido,
@@ -74,14 +85,14 @@ const pedidoController = {
     atualizarPedido: async (req, res) => {
 
         try {
-            const { ID_Pedidos } = req.params;
+            const { ID_Pedido } = req.params;
             const { DataPedido, StatusPedido, ValorPedido, ID_clienteProduto } = req.body
 
             if (!DataPedido || !StatusPedido || !ValorPedido || !ID_clienteProduto) {
                 return res.status(400).json({ message: "Campos obrigatórios não preenchidos" });
             }
 
-            let pedido = await pedidosModel.findByPk(ID_Pedidos);
+            let pedido = await pedidosModel.findByPk(ID_Pedido);
 
             if (!pedido) {
                 return res.status(404).json({ message: "Pedido não encontrado" });
@@ -95,7 +106,7 @@ const pedidoController = {
             }
 
             await pedido.update(dadosAtualizados);
-            pedido = await pedidosModel.findByPk(ID_Pedidos);
+            pedido = await pedidosModel.findByPk(ID_Pedido);
             return res.status(200).json({ message: "Pedido atualizado com sucesso!", pedido });
         } catch (error) {
             console.error("Erro ao atualizar pedido:", error);
@@ -105,26 +116,25 @@ const pedidoController = {
 
     deletarPedido: async (req, res) => {
         try {
-            const { ID_Pedidos } = req.params;
-            
-            const pedido = await pedidosModel.findByPk(ID_Pedidos);
+            const { ID_Pedido } = req.params;
+
+            const pedido = await pedidosModel.findByPk(ID_Pedido);
 
             if (!pedido) {
                 return res.status(404).json({ message: "Pedido não encontrado" });
             }
 
-            
-            // resolver problema erro -> Missing where or truncate attribute in the options parameter of model.destroy
-            
-
             let result = await pedidosModel.destroy({
-                Where:{ID_Pedidos}           
-            });    
+                where: { ID_Pedido }
+            });
 
-            if(result > 0) {
+            if (result > 0) {
+
                 return res.status(200).json({ message: "Pedido deletado com sucesso!" });
-            }else{
-                return res.status(404).json({ message: "Pedido não encontrado para deletar" });
+
+            } else {
+
+                return res.status(404).json({ message: "Erro ao deletar o pedido" });
             }
 
         } catch (error) {
