@@ -19,9 +19,7 @@ const clienteController = {
                 }
             });
 
-            clientes = clientes.map(cliente => {
-                return cliente
-            });
+        
             return res.status(200).json({ clientes });
         } catch (error) {
             console.error("Erro ao listar clientes:", error);
@@ -44,12 +42,12 @@ const clienteController = {
 
             
             let clienteExiste = await clientesModel.findOne({
-                where: {
-                    [Op.or]: [
+               where: conditions
+                    [Op.or] [
                         { cpfCliente: cpfCliente },
                         { emailCliente: emailCliente },
                     ]
-                }
+                
             });
             if (clienteExiste) {
                 return res.status(409).json({ message: "Cliente já cadastrado!" })
