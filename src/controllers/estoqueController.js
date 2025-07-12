@@ -74,9 +74,10 @@ const estoqueController = {
         try {
 
             const { ID_Estoque } = req.params
+            
+            
             const { dataEntradaEstoque,dataSaida,statusEstoque,ID_FilialEstoque,ID_ProdutosEstoque } = req.body;
           
-
             let estoque = await estoqueModel.findByPk(ID_Estoque);
 
             if (dataEntradaEstoque||dataSaida||statusEstoque||ID_FilialEstoque||ID_ProdutosEstoque) {
