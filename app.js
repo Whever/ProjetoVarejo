@@ -1,5 +1,6 @@
 const express = require('express');
 
+
 const {clienteRouter} = require('./src/routes/clienteRouter'); // importar o arquivo de rotas de cliente
 const {estoqueRouter} = require('./src/routes/estoquesRoute'); // importar o arquivo de rotas de estoque
 const {filiaisRouter} = require('./src/routes/filiaisRoutes'); // importar o arquivo de rotas de filiais

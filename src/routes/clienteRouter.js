@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router(); // ele instancia o router, um objeto do express para definir rotas.
 
 //const {clienteController} = require("../controllers/clienteController");
-const {clienteController} = require('../controllers/clienteController')
+const {clienteController} = require('./../controllers/clienteController'); // importar o controlador de clientes
 
 
 router.get ("/",clienteController.listarCliente); // esta rota ira listar os clientes.

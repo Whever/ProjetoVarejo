@@ -64,7 +64,6 @@ const estoqueController = {
             const { ID_Estoque } = req.params
             const { dataEntradaEstoque,saidaEstoque,statusEstoque,ID_FilialEstoque,ID_ProdutosEstoque } = req.body;
           
-
             let estoque = await estoqueModel.findByPk(ID_Estoque);
 
             if (dataEntradaEstoque||saidaEstoque||statusEstoque||ID_FilialEstoque||ID_ProdutosEstoque) {
@@ -86,7 +85,6 @@ const estoqueController = {
 
         }
     },
-
 
     deletarEstoque: async (req, res) => {
 
