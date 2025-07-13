@@ -42,18 +42,7 @@ const produtoPedidosController = {
                 return res.status(400).json({ Message: "Campos obrigatórios não preenchidos" });
             }
 
-            // let produtoPedidoExiste = await produtoPedidoModel.findOne({
-            //     where: {
-            //         [Op.or]: [
-            //             { ID_produto: ID_produto },
-            //             { ID_Pedido: ID_Pedido },
-            //         ]
-            //     }
-            // });
-
-            // if (produtoPedidoExiste) {
-            //     return res.status(409).json({ message: "Produto pedido já cadastrado!" });
-            // }
+           
 
             await produtoPedidoModel.create({
                 quatidadePedido: quatidadePedido,
@@ -106,29 +95,23 @@ const produtoPedidosController = {
 
         try {
 
-            const { ID_produtosPedido } = req.params;       
-
+            const { ID_produtosPedido } = req.params;   
             
-
             const produtoPedido = await produtoPedidoModel.findByPk(ID_produtosPedido);
 
-            console.log(produtoPedido);
             
-
             if (!produtoPedido) {
-                return res.status(404).json({ message: "Produto pedido não encontrado" });
+                return res.status(404).json({ message: "não existe" });
             }
 
             let result = await produtoPedido.destroy({
                 where: { ID_produtosPedido }
             });
 
-            if (result > 0) {
+          
                 return res.status(200).json({ message: "Produto pedido deletado com sucesso!" });
-            }
-            else {
-                return res.status(404).json({ message: "Produto pedido não encontrado" });
-            }
+            
+
         } catch (error) {
             console.error("Erro ao deletar produto pedido:", error);
             return res.status(500).json({ message: "Erro ao deletar produto pedido" });
