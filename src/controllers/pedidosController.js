@@ -1,6 +1,5 @@
 const { Op, where } = require('sequelize');
 const { pedidosModel } = require('./../models/pedidosModel');
-const { Where } = require('sequelize/lib/utils');
 
 const pedidoController = {
 
@@ -37,8 +36,6 @@ const pedidoController = {
     cadastrarPedido: async (req, res) => {
         try {
             const { DataPedido, StatusPedido, ValorPedido, ID_clienteProduto } = req.body;
-
-
 
             if (!DataPedido || !StatusPedido || !ValorPedido || !ID_clienteProduto) {
                 return res.status(400).json({ message: "Campos obrigatórios não preenchidos" });
