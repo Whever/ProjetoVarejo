@@ -10,6 +10,9 @@ const pedidoController = {
             const { ID_Pedido } = req.query;
             let conditions = {};
 
+            console.log(" ----- ID_Pedido:", ID_Pedido);
+            
+
             if (ID_Pedido) {
                 conditions.ID_Pedido = ID_Pedido;
             }
@@ -44,9 +47,6 @@ const pedidoController = {
             if (!DataPedido || !StatusPedido || !ValorPedido || !ID_clienteProduto) {
                 return res.status(400).json({ message: "Campos obrigatórios não preenchidos" });
             }
-
-            
-            
             
             const clienteExist = clientesModel.findByPk(ID_clienteProduto);
 

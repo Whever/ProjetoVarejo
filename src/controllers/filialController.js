@@ -1,5 +1,5 @@
 const {Op,where} = require('sequelize');
-const {filialModel, filiaisModel} = require('./../models/filiaisModel'); // Importa o modelo de filiais do Sequelize
+const { filiaisModel} = require('./../models/filiaisModel'); // Importa o modelo de filiais do Sequelize
 
 const filialController = {
 
@@ -7,6 +7,9 @@ listarFilial: async (req, res) => {
     try {
         const { ID_Filial } = req.query;
         let conditions = {};
+
+        console.log("ID_Filial:", ID_Filial);
+        
 
         if(ID_Filial) {
             conditions.ID_Filial = ID_Filial;

@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();// Instancia o objeto do express usado para definir rotas
 
-const { pedidoController } = require('../controllers/pedidosController');// Importa o controlador de pedidos
+const { pedidoController } = require('../controllers/pedidoController');// Importa o controlador de pedidos
 //Rotas de Filiais
 
 router.get ("/", pedidoController.listarPedido );// Rota responsável por listar os pedidos no sistema
