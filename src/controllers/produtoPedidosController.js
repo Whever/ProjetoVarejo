@@ -108,6 +108,8 @@ const produtoPedidosController = {
 
             const { ID_produtosPedido } = req.params;       
 
+            
+
             const produtoPedido = await produtoPedidoModel.findByPk(ID_produtosPedido);
 
             console.log(produtoPedido);

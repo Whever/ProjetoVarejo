@@ -150,6 +150,8 @@ const estoqueController = {
         try {
 
             const ID_Estoque = req.params.ID_Estoque
+
+           
             const estoque = await estoqueModel.findByPk(ID_Estoque)
 
             if (!estoque) {
