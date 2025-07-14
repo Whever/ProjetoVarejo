@@ -26,7 +26,8 @@ const estoqueModel = sequelize.define('Estoques', {
         type: DataTypes.INTEGER,
         refences: {
             model: filiaisModel,
-            key: 'ID_Filial'
+            key: 'ID_Filial',
+            onDelete: 'CASCADE',
         },
         allowNull: false
 
@@ -35,7 +36,8 @@ const estoqueModel = sequelize.define('Estoques', {
         type: DataTypes.INTEGER,
         refences: {
             model: produtosModel,
-            key: 'ID_Produto'
+            key: 'ID_Produto', 
+            onDelete: 'CASCADE',
         },
         allowNull: false
     }

@@ -1,5 +1,6 @@
 const { Op } = require('sequelize');
 const { clientesModel } = require('./../models/clientesModel');
+const { pedidosModel } = require('./../models/pedidosModel');
 
 const clienteController = {
 
@@ -19,7 +20,7 @@ const clienteController = {
                 }
             });
 
-        
+
             return res.status(200).json({ clientes });
         } catch (error) {
             console.error("Erro ao listar clientes:", error);
@@ -40,13 +41,15 @@ const clienteController = {
                 return res.status(400).json({ Message: "Campos obrigatórios não preenchidos" });
             }
 
-            
+
             let clienteExiste = await clientesModel.findOne({
-               where: conditions
-                    [Op.or] [
+                where: {
+                    [Op.or]: [
                         { cpfCliente: cpfCliente },
                         { emailCliente: emailCliente }
-                    ]           
+                    ]
+                }
+
             });
             if (clienteExiste) {
                 return res.status(409).json({ message: "Cliente já cadastrado!" })
@@ -107,9 +110,12 @@ const clienteController = {
 
     ////
     deletarCliente: async (req, res) => {
-        const ID_Cliente = req.params.ID_Cliente;
-        const cliente = await clientesModel.findByPk(ID_Cliente);
+
         try {
+            const ID_Cliente = Number(req.params.ID_Cliente);
+
+            const cliente = await clientesModel.findByPk(ID_Cliente);
+
             if (!cliente) {
                 return res.status(404).json({ message: "Cliente não encontrado!" });
             }

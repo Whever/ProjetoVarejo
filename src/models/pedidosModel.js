@@ -26,6 +26,7 @@ const pedidosModel = sequelize.define("Pedidos",
             references: {
                 model: clientesModel,
                 key: 'ID_Cliente',
+                onDelete: 'CASCADE',
             },
             allowNull: false
         }

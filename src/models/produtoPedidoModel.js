@@ -19,7 +19,8 @@ const produtoPedidoModel = sequelize.define('ProdutoPedidos', {
         type: DataTypes.INTEGER,
         references: {
             model: produtosModel,
-            key: 'ID_Produto'
+            key: 'ID_Produto',
+            onDelete: 'CASCADE'    
         },
         allowNull: false
     },
@@ -27,7 +28,8 @@ const produtoPedidoModel = sequelize.define('ProdutoPedidos', {
         type: DataTypes.INTEGER,
         references: {
             model: pedidosModel,
-            key: 'ID_Pedido'
+            key: 'ID_Pedido',
+            onDelete: 'CASCADE'
         },
         allowNull: false
     },
