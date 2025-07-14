@@ -45,9 +45,8 @@ const clienteController = {
                where: conditions
                     [Op.or] [
                         { cpfCliente: cpfCliente },
-                        { emailCliente: emailCliente },
-                    ]
-                
+                        { emailCliente: emailCliente }
+                    ]           
             });
             if (clienteExiste) {
                 return res.status(409).json({ message: "Cliente já cadastrado!" })
